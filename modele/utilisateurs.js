@@ -16,7 +16,7 @@ const Utilisateurs = mongoose.model("utilisateurs", schemaUtilisateurs);
 const schema = joi.object({
     prénom : joi.string().min(3).max(255).required(),
     nom : joi.string().min(3).max(255).required(),
-    role : joi.boolean().required(),
+    role : joi.string().min(3).max(255).required(),
     password : joi.string().min(8).max(30).required(),
     email : joi.string().email().required(),
     estActif: joi.boolean().required()
