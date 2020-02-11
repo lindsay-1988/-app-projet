@@ -13,7 +13,7 @@ const Commentaires = mongoose.model("commentaire", schemaCommentaires);
 const schema = joi.object({
     contenu : joi.string().min(3).max(1000).required(),
     dateCreation : joi.date().format('YYYY-MM-DD').required(),
-    nomAuteur : joi.number().min(3).max(255).required(),
+    nomAuteur : joi.string().min(3).max(255).required(),
 });
 
 module.exports.schema = schema;
