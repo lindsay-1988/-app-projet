@@ -17,7 +17,7 @@ const schema = joi.object({
     titre : joi.string().min(3).max(255).required(),
     contenu : joi.string().min(3).max(255).required(),
     dateCreation : joi.date().format('YYYY-MM-DD'),
-    nomAuteur : joi.number().min(0).max(120).required(),
+    nomAuteur : joi.string().min(0).max(120).required(),
     categories: joi.string().min(3).max(255).required(),
     email : joi.string().email().required(),
     estPublie: joi.boolean().required()
