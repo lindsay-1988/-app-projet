@@ -18,7 +18,7 @@ const schema = joi.object({
     titre : joi.string().min(3).max(255).required(),
     contenu : joi.string().min(3).max(1000).required(),
     nomAuteur : joi.string().min(0).max(120).required(),
-    categories: joi.array().items(joi.string()).min(3).max(255).required(),
+    categories: joi.array().items(joi.string()).required(),
     email : joi.string().email().required(),
     estPublie: joi.boolean().required()
 });
