@@ -19,14 +19,14 @@ router.post("/", async function(req, res){
     }
     // si ok => ajouter dans ka base de données Mongo un nouvel enregistrement
     const utilisateurs = new Utilisateurs(body);
-    const resultat = await utilisateurs.save(); //asynchrone => attendre que Mongo écrive
+    const resultat = await utilisateurs.save(); 
     res.send(resultat);
 });
 
 // récupérer tous les profils
 router.get("/", async function(req,res){
     // récupérer tous les profils enregistrer dans la base de données
-    const resultat = await Utilisateurs.find() //asychrone =>
+    const resultat = await Utilisateurs.find() 
     res.send(resultat);
 });
 
@@ -34,12 +34,8 @@ router.get("/", async function(req,res){
 router.get("/:id", async function(req,res){
     // récupérer l'id qui à été transmis dans l'url
     const id = req.params.id;
+
     // vérifier que l'id est conforme
-    // on n'est plus sur des chiffres de base 1, 2 ...
-    // par défaut MongoDB va générer _id :"5e3a9950331ce9238cb6c103"
-    // dans le support => jour3 > Relations entre les documents > 5 > ObjectId du Driver de Mongo DB
-    // "5e3a9a52331ce9238cb6c104",
-    // "5e3a9b285a0e5643540a72ef",
     const verifID = mongoose.Types.ObjectId.isValid(id);
 
     // si l'id n'est pas conforme => 400 bad request et stop
@@ -47,7 +43,6 @@ router.get("/:id", async function(req,res){
         res.status(400).send("id donné n'est pas conforme");
         return;
     }
-    // res.send(verifID);
     
     // vérifier qu'il y a bien un utilisateurs avec l'id recherché
     const resultat = await Utilisateurs.find({_id : id});
@@ -68,7 +63,6 @@ router.delete("/:id", async function(req,res){
     const id = req.params.id;
 
     // vérifier que l'id est conforme
-    // verifID = true || false
     const verifID = mongoose.Types.ObjectId.isValid(id);
 
     // si non conforme => erreur 400 + stop  + message
@@ -79,7 +73,6 @@ router.delete("/:id", async function(req,res){
 
     // vérifier s'il existe bien un enregistrement avec id transmis dans l'url
     const resultat = await Utilisateurs.deleteOne({_id : id});
-    // res.send(resultat);
 
     // s'il y en a pas => erreur 404 + stop + message
     if(resultat.deletedCount === 0){
@@ -109,7 +102,6 @@ router.put("/:id", async function(req, res){
     const body = req.body;
 
     // vérifier quelle est conforme
-    // attention la variable est schema est global == disponible pour toutes les fonctions
     const verif = schema.validate(body);
 
     // si non conforme : erreur 400 + message + stop

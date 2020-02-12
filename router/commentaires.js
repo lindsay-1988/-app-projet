@@ -9,37 +9,31 @@ const {Commentaires, schema} = require("../modele/commentaires");
 router.post("/", async function(req, res){
     // récupérer le body de la requête post
     const body = req.body;
+
     // vérifier qu'elle est conforme à ce que l'on attend
-   
     const verif = schema.validate(body);
+
     // si ko => message et stop execution
     if(verif.error){
         res.status(400).send(verif.error.details[0].message);
         return;
     }
+
     // si ok => ajouter dans ka base de données Mongo un nouvel enregistrement
     const commentaires = new Commentaires(body);
-    const resultat = await commentaires.save(); //asynchrone => attendre que Mongo écrive
+    const resultat = await commentaires.save(); 
     res.send(resultat);
 });
 
 // récupérer tous les profils
 router.get("/", async function(req,res){
-    // récupérer tous les profils enregistrer dans la base de données
-    const resultat = await Commentaires.find() //asychrone =>
+    const resultat = await Commentaires.find() 
     res.send(resultat);
 });
 
 // récupérer un seul commentaires
 router.get("/:id", async function(req,res){
-    // récupérer l'id qui à été transmis dans l'url
     const id = req.params.id;
-    // vérifier que l'id est conforme
-    // on n'est plus sur des chiffres de base 1, 2 ...
-    // par défaut MongoDB va générer _id :"5e3a9950331ce9238cb6c103"
-    // dans le support => jour3 > Relations entre les documents > 5 > ObjectId du Driver de Mongo DB
-    // "5e3a9a52331ce9238cb6c104",
-    // "5e3a9b285a0e5643540a72ef",
     const verifID = mongoose.Types.ObjectId.isValid(id);
 
     // si l'id n'est pas conforme => 400 bad request et stop
@@ -47,17 +41,16 @@ router.get("/:id", async function(req,res){
         res.status(400).send("id donné n'est pas conforme");
         return;
     }
-    // res.send(verifID);
     
     // vérifier qu'il y a bien un commentaires avec l'id recherché
     const resultat = await Commentaires.find({_id : id});
-
     res.send(resultat);
    
     // si il n'y a pas de commentaires => 404 not found et stop
     if(resultat.length === 0){
         res.status(404).send("aucun enregistrement avec l'id " + id);
     }
+
     // si tout est ok je retourne le commentaires concerné
     res.send(resultat);
 })
@@ -109,7 +102,6 @@ router.put("/:id", async function(req, res){
     const body = req.body;
 
     // vérifier quelle est conforme
-    // attention la variable est schema est global == disponible pour toutes les fonctions
     const verif = schema.validate(body);
 
     // si non conforme : erreur 400 + message + stop
