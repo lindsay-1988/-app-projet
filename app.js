@@ -40,4 +40,4 @@ app.listen(port, function(){
     console.log("serveur lancé sur le port " + port);
 });
 
-// https://quiet-gorge-56637.herokuapp.com/
+// https://quiet-gorge-56637.herokuapp.com

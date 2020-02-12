@@ -7,6 +7,7 @@ const schemaCommentaires = mongoose.Schema({
     dateCreation : {type : Date, default : Date.now},
     nomAuteur : String,
 });
+
 // lier le schéma à la collection = Modèle
 const Commentaires = mongoose.model("commentaire", schemaCommentaires);
 

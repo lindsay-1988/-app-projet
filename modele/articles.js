@@ -6,10 +6,11 @@ const schemaArticles = mongoose.Schema({
     contenu : String,
     dateCreation : {type : Date, default : Date.now},
     nomAuteur : String,
-    categories: String,
+    categories: [String],
     email : String,
     estPublie: Boolean
 });
+
 // lier le schéma à la collection = Modèle
 const Articles = mongoose.model("articles", schemaArticles);
 
@@ -17,7 +18,7 @@ const schema = joi.object({
     titre : joi.string().min(3).max(255).required(),
     contenu : joi.string().min(3).max(1000).required(),
     nomAuteur : joi.string().min(0).max(120).required(),
-    categories: joi.string().min(3).max(255).required(),
+    categories: joi.array().items(joi.string()).min(3).max(255).required(),
     email : joi.string().email().required(),
     estPublie: joi.boolean().required()
 });
