@@ -16,7 +16,6 @@ const Articles = mongoose.model("articles", schemaArticles);
 const schema = joi.object({
     titre : joi.string().min(3).max(255).required(),
     contenu : joi.string().min(3).max(1000).required(),
-    dateCreation : joi.date("DD-MM-YYYY"),
     nomAuteur : joi.string().min(0).max(120).required(),
     categories: joi.string().min(3).max(255).required(),
     email : joi.string().email().required(),
